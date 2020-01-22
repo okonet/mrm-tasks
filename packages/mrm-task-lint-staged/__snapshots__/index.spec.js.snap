@@ -13,10 +13,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,css,json}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,css,json}\\": \\"prettier --write\\"
   }
 }",
 }
@@ -35,10 +32,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,css}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,css}\\": \\"prettier --write\\"
   }
 }",
 }
@@ -57,10 +51,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,css,json,md}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,css,json,md}\\": \\"prettier --write\\"
   }
 }",
 }
@@ -79,10 +70,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.js\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.js\\": \\"eslint --fix\\"
   }
 }",
 }
@@ -103,14 +91,8 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,css,json,md}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ],
-    \\"*.js\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,css,json,md}\\": \\"prettier --write\\",
+    \\"*.js\\": \\"eslint --fix\\"
   }
 }",
 }
@@ -129,10 +111,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.js\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.js\\": \\"prettier --write\\"
   }
 }",
 }
@@ -151,10 +130,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.css\\": [
-      \\"stylelint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.css\\": \\"stylelint --fix\\"
   }
 }",
 }
@@ -175,10 +151,7 @@ exports[`should infer ESLint extension for an npm script 1`] = `
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,jsx}\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,jsx}\\": \\"eslint --fix\\"
   }
 }"
 `;
@@ -198,10 +171,7 @@ exports[`should infer Prettier extension from an npm script 1`] = `
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,jsx}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,jsx}\\": \\"prettier --write\\"
   }
 }"
 `;
@@ -221,11 +191,30 @@ exports[`should merge ESLint and Prettier into a single lint-staged rule 1`] = `
   \\"lint-staged\\": {
     \\"*.js\\": [
       \\"eslint --fix\\",
-      \\"prettier --write\\",
-      \\"git add\\"
+      \\"prettier --write\\"
     ]
   }
 }"
+`;
+
+exports[`should remove \`git add\` from lint-staged config if lint-staged v10 is used 1`] = `
+Object {
+  "/package.json": "{
+  \\"name\\": \\"unicorn\\",
+  \\"scripts\\": {},
+  \\"devDependencies\\": {
+    \\"eslint\\": \\"*\\"
+  },
+  \\"lint-staged\\": {
+    \\"*.js\\": \\"eslint --fix\\"
+  },
+  \\"husky\\": {
+    \\"hooks\\": {
+      \\"pre-commit\\": \\"lint-staged\\"
+    }
+  }
+}",
+}
 `;
 
 exports[`should remove husky 0.14 config from package.json 1`] = `
@@ -242,10 +231,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.js\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.js\\": \\"eslint --fix\\"
   }
 }",
 }
@@ -264,10 +250,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,jsx}\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,jsx}\\": \\"eslint --fix\\"
   }
 }",
 }
@@ -306,10 +289,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.scss\\": [
-      \\"stylelint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.scss\\": \\"stylelint --fix\\"
   }
 }",
 }
@@ -328,10 +308,7 @@ Object {
     }
   },
   \\"lint-staged\\": {
-    \\"*.{js,jsx,mjs}\\": [
-      \\"prettier --write\\",
-      \\"git add\\"
-    ]
+    \\"*.{js,jsx,mjs}\\": \\"prettier --write\\"
   }
 }",
 }
@@ -352,10 +329,7 @@ exports[`should use default JS extension if eslint command has no --ext key 1`] 
     }
   },
   \\"lint-staged\\": {
-    \\"*.js\\": [
-      \\"eslint --fix\\",
-      \\"git add\\"
-    ]
+    \\"*.js\\": \\"eslint --fix\\"
   }
 }"
 `;

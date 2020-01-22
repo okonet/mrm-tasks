@@ -1,7 +1,7 @@
 const { packageJson, install, getExtsFromCommand } = require('mrm-core');
 const semver = require('semver');
 
-const packages = { 'lint-staged': '>=8', husky: '>=1' };
+const packages = { 'lint-staged': '>=10', husky: '>=1' };
 
 function extsToGlob(exts, defaults) {
 	if (!exts) {
@@ -76,9 +76,13 @@ function task(config) {
 		// Merge rules with the same extensions
 		newRules.forEach(([exts, command]) => {
 			if (rules[exts]) {
-				rules[exts].unshift(command);
+				if (Array.isArray(rules[exts])) {
+					rules[exts].unshift(command);
+				} else {
+					rules[exts] = [command, rules[exts]];
+				}
 			} else {
-				rules[exts] = [command, 'git add'];
+				rules[exts] = command;
 			}
 		});
 	}
