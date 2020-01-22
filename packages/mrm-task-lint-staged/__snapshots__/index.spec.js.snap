@@ -197,24 +197,27 @@ exports[`should merge ESLint and Prettier into a single lint-staged rule 1`] = `
 }"
 `;
 
-exports[`should remove \`git add\` from lint-staged config if lint-staged v10 is used 1`] = `
-Object {
-  "/package.json": "{
+exports[`should not override existing lint-staged rules 1`] = `
+"{
   \\"name\\": \\"unicorn\\",
-  \\"scripts\\": {},
   \\"devDependencies\\": {
-    \\"eslint\\": \\"*\\"
+    \\"eslint\\": \\"*\\",
+    \\"prettier\\": \\"*\\",
+    \\"stylelint\\": \\"*\\"
   },
   \\"lint-staged\\": {
-    \\"*.js\\": \\"eslint --fix\\"
+    \\"*.js\\": [
+      \\"existing\\",
+      \\"commands\\"
+    ],
+    \\"*.css\\": \\"existing\\"
   },
   \\"husky\\": {
     \\"hooks\\": {
       \\"pre-commit\\": \\"lint-staged\\"
     }
   }
-}",
-}
+}"
 `;
 
 exports[`should remove husky 0.14 config from package.json 1`] = `

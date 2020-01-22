@@ -73,9 +73,18 @@ function task(config) {
 			newRules.push([extsToGlob(exts, stylelintExtensions), 'stylelint --fix']);
 		}
 
+		// Get existing lint-staged config
+		const lintStagedConfig = pkg.get(`lint-staged`);
+
 		// Merge rules with the same extensions
 		newRules.forEach(([exts, command]) => {
-			if (rules[exts]) {
+			// Check if the rule for this extension already exist in package.json config
+			// and do not override it.
+			if (lintStagedConfig && lintStagedConfig[exts]) {
+				console.log(`\nFound existing rules for ${exts}! They will not be overwritten.`);
+				// Copy existing rules to the new rule set
+				rules[exts] = lintStagedConfig[exts];
+			} else if (rules[exts]) {
 				if (Array.isArray(rules[exts])) {
 					rules[exts].unshift(command);
 				} else {
@@ -95,6 +104,7 @@ function task(config) {
 	}
 
 	// package.json
+	console.log('this is the final config', rules);
 	pkg
 		// Remove husky 0.14 config
 		.unset('scripts.precommit')

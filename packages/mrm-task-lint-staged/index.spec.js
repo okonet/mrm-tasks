@@ -255,6 +255,29 @@ it('should merge ESLint and Prettier into a single lint-staged rule', () => {
 	expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=1' });
 });
 
+it('should not override existing lint-staged rules', () => {
+	vol.fromJSON({
+		'/package.json': stringify({
+			name: 'unicorn',
+			devDependencies: {
+				eslint: '*',
+				prettier: '*',
+				stylelint: '*',
+			},
+			'lint-staged': {
+				'*.js': ['existing', 'commands'],
+				'*.css': 'existing',
+			},
+		}),
+	});
+
+	task(getConfigGetter({}));
+
+	expect(vol.toJSON()['/package.json']).toMatchSnapshot();
+	expect(console.log).toBeCalledWith(expect.stringMatching('Found existing rules'));
+	// expect(install).toBeCalledWith({ 'lint-staged': '>=10', husky: '>=1' });
+});
+
 it('should add stylelint if project depends on it', () => {
 	vol.fromJSON({
 		'/package.json': stringify({
@@ -312,27 +335,6 @@ it('should remove husky 0.14 config from package.json', () => {
 			},
 			devDependencies: {
 				eslint: '*',
-			},
-		}),
-	});
-
-	task(getConfigGetter());
-
-	expect(vol.toJSON()).toMatchSnapshot();
-});
-
-it('should remove `git add` from lint-staged config if lint-staged v10 is used', () => {
-	vol.fromJSON({
-		'/package.json': stringify({
-			name: 'unicorn',
-			scripts: {
-				precommit: 'lint-staged',
-			},
-			devDependencies: {
-				eslint: '*',
-			},
-			'lint-staged': {
-				'*.js': ['eslint --fix', 'some other command', 'git add'],
 			},
 		}),
 	});
